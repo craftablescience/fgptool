@@ -24,6 +24,6 @@ Positional arguments:
 
 Optional arguments:
   -h, --help  shows help message and exits 
-  -m, --mode  The active mode. Can be EXTRACT, CRACK, DUMP, or TEST. [nargs=0..1]
+  -m, --mode  The active mode. Can be EXTRACT, CRACK, META, DUMP, or TEST. [nargs=0..1]
               [default: "CRACK"]
 ```
