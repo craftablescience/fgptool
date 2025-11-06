@@ -86,6 +86,7 @@ void extract(const std::vector<std::string>& inputPaths) {
 		addPath(std::format("materials/console/background{}_widescreen.vmt", i)); // WRONG?
 		addPath(std::format("materials/console/background{}_widescreen.vtf", i));
 	}
+	addPath("materials/dev/bloomadd_ps3.vmt");
 	addPath("materials/models/weapons/v_models/v_hands/v_hands.vmt");
 	addPath("materials/models/weapons/v_models/v_hands/v_hands.vtf");
 	for (int i = 0; i <= 20; i++) {
