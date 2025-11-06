@@ -251,6 +251,17 @@ void crack(const std::string& inputPath) {
 	std::cout << (found / static_cast<double>(total) * 100) << "% hashes identified (" << ((found - existed) / static_cast<double>(total) * 100)  << "% new) for " << std::filesystem::path{inputPath}.filename().string() << std::endl;
 }
 
+void meta(const std::string& inputPath) {
+	const auto fgp = FGP::open(inputPath);
+	if (!fgp) {
+		std::cerr << "Can't open file \"" << inputPath << "\" as FGP!" << std::endl;
+		return;
+	}
+	std::cout << fgp->getFilename() << std::endl;
+	std::cout << "\tFile count: " << fgp->getEntryCount() << std::endl;
+	std::cout << "\tLoading screen path: " << dynamic_cast<FGP&>(*fgp).getLoadingScreenFilePath() << std::endl;
+}
+
 void dump(const std::string& inputPath) {
 	const auto fgp = FGP::open(inputPath);
 	if (!fgp) {
@@ -281,7 +292,7 @@ int main(int argc, const char* const argv[]) {
 	cli.add_argument("input").metavar("PATH").help("The input path(s).").remaining().store_into(inputPaths);
 
 	std::string mode = "CRACK";
-	cli.add_argument("-m", "--mode").metavar("MODE").help("The active mode. Can be EXTRACT, CRACK, DUMP, or TEST.").choices("EXTRACT", "CRACK", "DUMP", "TEST").default_value(mode).store_into(mode);
+	cli.add_argument("-m", "--mode").metavar("MODE").help("The active mode. Can be EXTRACT, CRACK, META, DUMP, or TEST.").choices("EXTRACT", "CRACK", "META", "DUMP", "TEST").default_value(mode).store_into(mode);
 
 	cli.add_epilog(
 		PROJECT_NAME " — version v" PROJECT_VERSION " — created by " PROJECT_ORGANIZATION_NAME " — licensed under MIT\n"
@@ -313,6 +324,8 @@ int main(int argc, const char* const argv[]) {
 						if (entry.is_regular_file() && entry.path().extension().string() == ".GRP") {
 							if (mode == "CRACK") {
 								::crack(entry.path().string());
+							} else if (mode == "META") {
+								::meta(entry.path().string());
 							} else {
 								::dump(entry.path().string());
 							}
@@ -320,6 +333,8 @@ int main(int argc, const char* const argv[]) {
 					}
 				} else if (mode == "CRACK") {
 					::crack(inputPath);
+				} else if (mode == "META") {
+					::meta(inputPath);
 				} else {
 					::dump(inputPath);
 				}
