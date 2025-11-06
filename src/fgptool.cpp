@@ -139,6 +139,9 @@ void extract(const std::vector<std::string>& inputPaths) {
 	addPath("resource/ps3/ps3optionscontroller.res");
 	addPath("resource/ps3/ps3popup.res");
 	addPath("resource/ps3/ps3queueforgame.res");
+	addPath("savecontentps3/icon0.png");
+	addPath("savecontentps3/icon1.pam");
+	addPath("savecontentps3/pic1.png");
 	addPath("scripts/options.txt");
 	addPath("scripts/mod_options.txt");
 	for (int i = 0; i <= 6; i++) {
