@@ -73,9 +73,13 @@ void extract(const std::vector<std::string>& inputPaths) {
 	//addPath("makereslists_xbox.txt");
 	//addPath("resource/engine.lst");
 	//addPath("resource/undelete.lst");
-
-	// Exist
 	//addPath("materials/allow1024.txt");
+
+	// AppChooser sounds are laid out in the root directory lol
+	addPath("ui/buttonclick.wav");
+	addPath("ui/buttonclickrelease.wav");
+	addPath("player/suit_denydevice.wav");
+
 	for (int i = 0; i <= 20; i++) {
 		addPath(std::format("materials/console/background{}.vmt", i));
 		addPath(std::format("materials/console/background{}.vtf", i));
