@@ -142,6 +142,7 @@ void extract(const std::vector<std::string>& inputPaths) {
 	addPath("savecontentps3/icon0.png");
 	addPath("savecontentps3/icon1.pam");
 	addPath("savecontentps3/pic1.png");
+	addPath("savecontentps3/snd0.at3");
 	addPath("scripts/options.txt");
 	addPath("scripts/mod_options.txt");
 	for (int i = 0; i <= 6; i++) {
@@ -188,6 +189,8 @@ void extract(const std::vector<std::string>& inputPaths) {
 			if (it.path().extension() == ".bsp") {
 				addPath("reslists_xbox/" + it.path().stem().string() + ".lst");
 				addPath("reslists_xbox/" + it.path().stem().string() + "_exclude.lst");
+				addPath("maps/" + it.path().stem().string() + ".lst");
+				addPath("maps/" + it.path().stem().string() + "_exclude.lst");
 				continue;
 			}
 
