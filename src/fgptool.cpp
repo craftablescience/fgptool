@@ -259,6 +259,14 @@ void meta(const std::string& inputPath) {
 	}
 	std::cout << fgp->getFilename() << std::endl;
 	std::cout << "\tFile count: " << fgp->getEntryCount() << std::endl;
+
+	const uint32_t total = fgp->getEntryCount();
+	uint32_t existed = 0;
+	fgp->runForAllEntries([&existed](const std::string& path, const Entry&) {
+		existed += !path.starts_with("__hashed__/");
+	});
+	std::cout << "\tMissing hashes: " << (total - existed) << " (" << ((total - existed) / static_cast<double>(total) * 100) << "%)" << std::endl;
+
 	std::cout << "\tLoading screen path: " << dynamic_cast<FGP&>(*fgp).getLoadingScreenFilePath() << std::endl;
 }
 

@@ -113,18 +113,23 @@ $ ./fgptool -m META "/home/lxlewis/Downloads/PORTAL/"
 
 BACKGROUND1.GRP
 	File count: 2868
+	Missing hashes: 87 (3.03347%)
 	Loading screen path: materials/vgui/appchooser/background_portal.ps3.vtf
 BACKGROUND2.GRP
 	File count: 2757
+	Missing hashes: 83 (3.01052%)
 	Loading screen path: materials/vgui/appchooser/background_portal.ps3.vtf
 ESCAPE_00.GRP
 	File count: 3379
+	Missing hashes: 91 (2.6931%)
 	Loading screen path: materials/vgui/appchooser/background_portal.ps3.vtf
 ESCAPE_01.GRP
 	File count: 3844
+	Missing hashes: 104 (2.70552%)
 	Loading screen path: materials/vgui/appchooser/background_portal.ps3.vtf
 ESCAPE_02.GRP
 	File count: 4672
+	Missing hashes: 113 (2.41866%)
 	Loading screen path: materials/vgui/appchooser/background_portal.ps3.vtf
 ```
 
