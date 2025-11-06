@@ -271,13 +271,17 @@ void dump(const std::string& inputPath) {
 	if (const auto outputPath = std::filesystem::path{fgp->getFilepath()}.parent_path().string(); !fgp->extractAll(outputPath)) {
 		std::cerr << "Failed to extract some files to \"" << outputPath << "\"!" << std::endl;
 	} else {
-		std::cout << "Extracted " << fgp->getFilename() << " to \"" << outputPath << "\"." << std::endl;
+		std::cout << "Extracted " << fgp->getFilename() << " to \"" << (std::filesystem::path{outputPath} / fgp->getFilestem()).string() << "\"." << std::endl;
 	}
 }
 
 void test() {
 	std::string path;
 	while (std::getline(std::cin, path)) {
+		if (path == "exit" || path == "quit") {
+			break;
+		}
+		string::normalizeSlashes(path, true);
 		const auto hashHex = std::format("{:08x}", FGP::hashFilePath(path));
 		std::cout << '\t' << (std::string{hashHex[6]} + hashHex[7] + hashHex[4] + hashHex[5] + hashHex[2] + hashHex[3] + hashHex[0] + hashHex[1]) << '\n' << std::endl;
 	}
