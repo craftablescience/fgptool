@@ -1,0 +1,55 @@
+name: Build
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    # nothing here
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type:
+          - Debug
+          - Release
+        os:
+          - { name: Windows, image: windows-latest }
+          - { name: Linux,   image: ubuntu-latest  }
+          - { name: macOS,   image: macos-latest   }
+    runs-on: ${{matrix.os.image}}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Set up MSVC [Windows]
+        if: matrix.os.name == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Configure CMake
+        run: cmake -G "Ninja" -B build -DCMAKE_BUILD_TYPE=${{matrix.build_type}} -DFGPTOOL_USE_LTO=ON
+
+      - name: Build Binaries
+        run: cmake --build build --config ${{matrix.build_type}} -t fgptool
+
+      - name: Upload Standalone
+        uses: actions/upload-artifact@v5
+        with:
+          name: 'fgptool-${{matrix.os.name}}-Standalone-${{matrix.build_type}}'
+          path: |
+            build/fgptool.exe
+            build/fgptool
+          retention-days: 7
+
+      - name: Upload Standalone PDBs
+        if: matrix.os.name == 'Windows'
+        uses: actions/upload-artifact@v5
+        with:
+          name: 'fgptool-Windows-PDBs-${{matrix.build_type}}'
+          path: |
+            build/fgptool.pdb
+          retention-days: 7

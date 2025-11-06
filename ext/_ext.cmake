@@ -1,0 +1,8 @@
+# argparse
+add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/argparse")
+
+# sourcepp
+set(SOURCEPP_LIBS_START_ENABLED OFF CACHE INTERNAL "" FORCE)
+set(SOURCEPP_USE_KVPP           ON  CACHE INTERNAL "" FORCE)
+set(SOURCEPP_USE_VPKPP          ON  CACHE INTERNAL "" FORCE)
+add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/sourcepp")
