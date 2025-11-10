@@ -49,7 +49,7 @@ search paths may be entered to create a larger table. This will generate a file 
 `mappings.kv` next to the `fgptool` executable.
 
 ```
-$ ./fgptool -m EXTRACT "/run/media/lxlewis/Storage4/Archive/Source/X360/The Orange Box (World)/portal"
+$ ./fgptool -m EXTRACT "X360/The Orange Box (World)/portal"
 
 Found 235996 paths.
 Hash c90578aa has multiple candidates! Using first one...
@@ -65,7 +65,7 @@ Next, use the crack operation to attempt to crack the hashes. If a directory is 
 will look for file groups under that directory and run the crack operation on each one.
 
 ```
-$ ./fgptool -m CRACK "/home/lxlewis/Downloads/PORTAL/"
+$ ./fgptool -m CRACK "PORTAL"
 
 96.9665% hashes identified (96.9665% new) for BACKGROUND1.GRP
 96.9895% hashes identified (96.9895% new) for BACKGROUND2.GRP
@@ -80,36 +80,32 @@ results. Once complete, you can either view the file groups in a program like
 dump their contents to disk:
 
 ```
-$ ./fgptool -m DUMP "/home/lxlewis/Downloads/PORTAL/TESTCHMB_A_15.GRP"
+$ ./fgptool -m DUMP "PORTAL/TESTCHMB_A_15.GRP"
 
-Extracted TESTCHMB_A_15.GRP to "/home/lxlewis/Downloads/PORTAL/TESTCHMB_A_15".
+Extracted TESTCHMB_A_15.GRP to "PORTAL/TESTCHMB_A_15".
 ```
 
 Dumping the contents of a file group and checking the contents of the `__hashed__` directory
 can also be helpful in identifying unknown file path hashes manually. When attempting to
-identify unknown file path hashes, the test operation can be helpful to quickly check what
-hash a file path is transformed into:
+identify unknown file path hashes, the test operation can be helpful to quickly check for
+possible file paths:
 
 ```
-$ ./fgptool -m TEST
+$ ./fgptool -m TEST "PORTAL/TESTCHMB_A_15.GRP"
 
+Testing against TESTCHMB_A_15.GRP...
 $ materials/allow1024.txt
-	0f403033
-
-$ materials/allow1024_xbox.txt
-	af459a7a
-
-$ materials/allow1024.ps3.txt
-	73ef4f8e
-
+$ maps/testchmb_a_15_exclude.lst
+Match!
 $ exit
+Cracked 1 hash, writing results to disk...
 ```
 
 Finally, the meta operation will print file group metadata, which is useful for identifying
 the assigned loading screen:
 
 ```
-$ ./fgptool -m META "/home/lxlewis/Downloads/PORTAL/"
+$ ./fgptool -m META "PORTAL"
 
 BACKGROUND1.GRP
 	File count: 2868

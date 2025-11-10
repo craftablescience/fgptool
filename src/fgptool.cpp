@@ -244,8 +244,8 @@ void crack(const std::string& inputPath) {
 
 	std::vector<std::string> fgpCRCs;
 	fgp->runForAllEntries([&found, &existed, &fgpCRCs](const std::string& path, const Entry&) {
-		if (path.starts_with("__hashed__/")) {
-			fgpCRCs.push_back(path.substr(11));
+		if (path.starts_with(FGP_HASHED_FILEPATH_PREFIX)) {
+			fgpCRCs.push_back(path.substr(FGP_HASHED_FILEPATH_PREFIX.size()));
 		} else {
 			found++;
 			existed++;
@@ -253,7 +253,7 @@ void crack(const std::string& inputPath) {
 	});
 	for (const auto& crc : fgpCRCs) {
 		if (!kv[crc].isInvalid()) {
-			fgp->renameEntry("__hashed__/" + crc, std::string{kv[crc].getValue()});
+			fgp->renameEntry(std::string{FGP_HASHED_FILEPATH_PREFIX} + crc, std::string{kv[crc].getValue()});
 			found++;
 		}
 	}
@@ -274,7 +274,7 @@ void meta(const std::string& inputPath) {
 	const uint32_t total = fgp->getEntryCount();
 	uint32_t existed = 0;
 	fgp->runForAllEntries([&existed](const std::string& path, const Entry&) {
-		existed += !path.starts_with("__hashed__/");
+		existed += !path.starts_with(FGP_HASHED_FILEPATH_PREFIX);
 	});
 	std::cout << "\tMissing hashes: " << (total - existed) << " (" << ((total - existed) / static_cast<double>(total) * 100) << "%)" << std::endl;
 
@@ -294,15 +294,36 @@ void dump(const std::string& inputPath) {
 	}
 }
 
-void test() {
+void test(const std::string& inputPath) {
+	const auto fgp = FGP::open(inputPath);
+	if (!fgp) {
+		std::cerr << "Can't open file \"" << inputPath << "\" as FGP!" << std::endl;
+		return;
+	}
+	std::cout << "Testing against " << fgp->getFilename() << "..." << std::endl;
+
+	std::vector<std::string> fgpCRCs;
+	fgp->runForAllEntries([&fgpCRCs](const std::string& path, const Entry&) {
+		if (path.starts_with(FGP_HASHED_FILEPATH_PREFIX)) {
+			fgpCRCs.push_back(path.substr(FGP_HASHED_FILEPATH_PREFIX.size()));
+		}
+	});
+
+	int found = 0;
 	std::string path;
 	while (std::getline(std::cin, path)) {
 		if (path == "exit" || path == "quit") {
 			break;
 		}
 		string::normalizeSlashes(path, true);
-		const auto hashHex = std::format("{:08x}", FGP::hashFilePath(path));
-		std::cout << '\t' << (std::string{hashHex[6]} + hashHex[7] + hashHex[4] + hashHex[5] + hashHex[2] + hashHex[3] + hashHex[0] + hashHex[1]) << '\n' << std::endl;
+		if (const auto hashHex = std::format("{:08x}", FGP::hashFilePath(path)); std::ranges::find(fgpCRCs, std::string{hashHex[6]} + hashHex[7] + hashHex[4] + hashHex[5] + hashHex[2] + hashHex[3] + hashHex[0] + hashHex[1]) != fgpCRCs.end()) {
+			std::cout << "Match!" << std::endl;
+			found++;
+		}
+	}
+	if (found) {
+		std::cout << "Cracked " << found << " hash" << (found != 1 ? "es" : "") << ", writing results to disk..." << std::endl;
+		fgp->bake("", {}, nullptr);
 	}
 }
 
@@ -325,11 +346,6 @@ int main(int argc, const char* const argv[]) {
 	try {
 		cli.parse_args(argc, argv);
 
-		if (mode == "TEST") {
-			::test();
-			return EXIT_SUCCESS;
-		}
-
 		if (inputPaths.empty()) {
 			throw std::runtime_error{"No input path(s) provided!"};
 		}
@@ -349,8 +365,10 @@ int main(int argc, const char* const argv[]) {
 								::crack(entry.path().string());
 							} else if (mode == "META") {
 								::meta(entry.path().string());
-							} else {
+							} else if (mode == "DUMP") {
 								::dump(entry.path().string());
+							} else {
+								::test(entry.path().string());
 							}
 						}
 					}
@@ -358,8 +376,10 @@ int main(int argc, const char* const argv[]) {
 					::crack(inputPath);
 				} else if (mode == "META") {
 					::meta(inputPath);
-				} else {
+				} else if (mode == "DUMP") {
 					::dump(inputPath);
+				} else {
+					::test(inputPath);
 				}
 			}
 		}
