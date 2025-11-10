@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.28 FATAL_ERROR)
 # set up project
 project(fgptool
         DESCRIPTION "A tool to crack the filepath hashes in The Orange Box PS3 file groups."
-        VERSION 0.1.0
+        VERSION 0.2.0
         HOMEPAGE_URL "https://github.com/craftablescience/fgptool")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
