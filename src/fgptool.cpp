@@ -194,16 +194,17 @@ void extract(const std::vector<std::string>& inputPaths) {
 				continue;
 			}
 
-			if (it.path().extension() == ".vpk" || it.path().extension() == ".zip") {
-				const auto vpkPath = it.path().string();
-				if (vpkPath.length() < 7 || string::matches(vpkPath.substr(vpkPath.length() - 7), "%d%d%d.vpk")) {
+			const auto ext = string::toLower(it.path().extension().string());
+			if (ext == FGP_EXTENSION || ext == VPK_EXTENSION || ext == ZIP_EXTENSION) {
+				const auto packFilePath = it.path().string();
+				if (packFilePath.length() < 7 || string::matches(packFilePath.substr(packFilePath.length() - 7), "%d%d%d.vpk")) {
 					continue;
 				}
-				const auto vpk = PackFile::open(vpkPath);
-				if (!vpk) {
+				const auto packFile = PackFile::open(packFilePath);
+				if (!packFile) {
 					continue;
 				}
-				vpk->runForAllEntries([isFGP = string::iequals(it.path().extension().string(), FGP_EXTENSION)](const std::string& path, const Entry&) {
+				packFile->runForAllEntries([isFGP = ext == FGP_EXTENSION](const std::string& path, const Entry&) {
 					if (!isFGP || !path.starts_with(FGP_HASHED_FILEPATH_PREFIX)) {
 						addPath(path);
 					}
@@ -242,7 +243,7 @@ void crack(const std::string& inputPath) {
 	}
 
 	std::string path = "mappings.kv";
-	if (const auto dirKV = std::filesystem::path{inputPath}.filename().string() + ".kv"; std::filesystem::exists(dirKV)) {
+	if (const auto dirKV = std::filesystem::path{inputPath}.parent_path().filename().string() + ".kv"; std::filesystem::exists(dirKV)) {
 		path = dirKV;
 	}
 	const kvpp::KV1 kv{fs::readFileText(path)};
