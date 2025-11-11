@@ -237,7 +237,11 @@ void crack(const std::string& inputPath) {
 		return;
 	}
 
-	const kvpp::KV1 kv{fs::readFileText("mappings.kv")};
+	std::string path = "mappings.kv";
+	if (const auto dirKV = std::filesystem::path{inputPath}.filename().string() + ".kv"; std::filesystem::exists(dirKV)) {
+		path = dirKV;
+	}
+	const kvpp::KV1 kv{fs::readFileText(path)};
 
 	const uint32_t total = fgp->getEntryCount();
 	uint32_t found = 0, existed = 0;
