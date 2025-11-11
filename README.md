@@ -34,7 +34,18 @@ releases of Orange Box games.
 This program is intended to crack the file path hashes in file groups to enable better
 previewing of their contents in programs like [VPKEdit](https://github.com/craftablescience/VPKEdit).
 
-## Usage
+## Quickstart
+
+- Download the appropriate executable for your platform.
+  Windows is `fgptool.exe`, the others are `fgptool` with no extension.
+- Download the rainbow tables for the game folders you want to crack the contents of.
+  They are named `GAME.kv`.
+- Place the executable and the rainbow tables inside the `FILEGROUPS` folder.
+- Ensure the FGP files are editable, since RPCS3 likes to make them read-only.
+- Drag the game folder(s) to crack the contents of on top of the executable.
+- This will be enough to edit the file groups and make custom mods or explore 98% of their contents.
+
+## Extended Usage
 
 Before running this tool, install as many copies of Orange Box games as you can. The Xbox 360
 port will be very helpful, as well as copies of each release on PC. Additionally, make sure
