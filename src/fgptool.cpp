@@ -15,7 +15,7 @@
 #include <kvpp/KV1.h>
 #include <sourcepp/FS.h>
 #include <sourcepp/String.h>
-#include <vpkpp/format/FGP.h>
+#include <vpkpp/vpkpp.h>
 
 #include "config.h"
 
@@ -89,6 +89,10 @@ void extract(const std::vector<std::string>& inputPaths) {
 	addPath("materials/dev/bloomadd_ps3.vmt");
 	addPath("materials/models/weapons/v_models/v_hands/v_hands.vmt");
 	addPath("materials/models/weapons/v_models/v_hands/v_hands.vtf");
+	for (int i = 1; i <= 33; i++) {
+		addPath(std::format("materials/vgui/anims/loading_64_{}.vmt", i));
+		addPath(std::format("materials/vgui/anims/loading_64_{}.vtf", i));
+	}
 	for (int i = 0; i <= 20; i++) {
 		addPath(std::format("materials/vgui/chapters/xbox/chapter{}.vmt", i));
 		addPath(std::format("materials/vgui/chapters/xbox/chapter{}.vtf", i));
