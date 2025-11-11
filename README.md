@@ -32,7 +32,7 @@ is necessary to test the hash against a rainbow table based on file paths taken 
 releases of Orange Box games.
 
 This program is intended to crack the file path hashes in file groups to enable better
-previewing of their contents in programs like [VPKEdit](https://github.com/craftablescience/VPKEdit).
+previewing and editing of their contents in programs like [VPKEdit](https://github.com/craftablescience/VPKEdit).
 
 ## Quickstart
 
