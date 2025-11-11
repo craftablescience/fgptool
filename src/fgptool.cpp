@@ -316,7 +316,11 @@ void test(const std::string& inputPath) {
 			break;
 		}
 		string::normalizeSlashes(path, true);
-		if (const auto hashHex = std::format("{:08x}", FGP::hashFilePath(path)); std::ranges::find(fgpCRCs, std::string{hashHex[6]} + hashHex[7] + hashHex[4] + hashHex[5] + hashHex[2] + hashHex[3] + hashHex[0] + hashHex[1]) != fgpCRCs.end()) {
+		string::toLower(path);
+		auto hashHex = std::format("{:08x}", FGP::hashFilePath(path));
+		hashHex = std::string{hashHex[6]} + hashHex[7] + hashHex[4] + hashHex[5] + hashHex[2] + hashHex[3] + hashHex[0] + hashHex[1];
+		if (std::ranges::find(fgpCRCs, hashHex) != fgpCRCs.end()) {
+			fgp->renameEntry(std::string{FGP_HASHED_FILEPATH_PREFIX} + hashHex, path);
 			std::cout << "Match!" << std::endl;
 			found++;
 		}
