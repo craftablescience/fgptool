@@ -203,7 +203,11 @@ void extract(const std::vector<std::string>& inputPaths) {
 				if (!vpk) {
 					continue;
 				}
-				vpk->runForAllEntries([](const std::string& path, const Entry&) { addPath(path); });
+				vpk->runForAllEntries([isFGP = string::iequals(it.path().extension().string(), FGP_EXTENSION)](const std::string& path, const Entry&) {
+					if (!isFGP || !path.starts_with(FGP_HASHED_FILEPATH_PREFIX)) {
+						addPath(path);
+					}
+				});
 				continue;
 			}
 
