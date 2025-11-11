@@ -95,6 +95,7 @@ void extract(const std::vector<std::string>& inputPaths) {
 		addPath(std::format("materials/vgui/chapters/chapter{}b.vmt", i));
 		addPath(std::format("materials/vgui/chapters/chapter{}b.ps3.vtf", i));
 	}
+	addPath("resource/ea_english.txt");
 	addPath("resource/dialogue/creategame.res");
 	addPath("resource/dialogue/feslgamebrowserdialogue.res");
 	addPath("resource/dialogue/ps3playgroupsettingsdialog.res");
