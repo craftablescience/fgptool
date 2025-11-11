@@ -58,28 +58,16 @@ void extract(const std::vector<std::string>& inputPaths) {
 		if (path.starts_with("resource/portal_") && path.ends_with(".txt")) {
 			addPathInternal("resource/ea_" + path.substr(16));
 		}
-
-		// Wishful thinking
-		if (path.ends_with(".dll")) {
-			addPathInternal(std::filesystem::path{path}.replace_extension(".pdb").string());
-			addPathInternal(std::filesystem::path{path}.replace_extension(".dbg").string());
-		}
 	};
-
-	// Probably don't exist
-	//addPath("__preload_section.pre");
-	//addPath("lightdata.swp");
-	//addPath("makereslists.txt");
-	//addPath("makereslists_xbox.txt");
-	//addPath("resource/engine.lst");
-	//addPath("resource/undelete.lst");
-	//addPath("materials/allow1024.txt");
 
 	// AppChooser sounds are laid out in the root directory lol
 	addPath("ui/buttonclick.wav");
 	addPath("ui/buttonclickrelease.wav");
 	addPath("player/suit_denydevice.wav");
 
+	addPath("bin/server.dll");
+	addPath("navplace.db");
+	addPath("steam.inf");
 	for (int i = 0; i <= 20; i++) {
 		addPath(std::format("materials/console/background{}.vmt", i));
 		addPath(std::format("materials/console/background{}.vtf", i));
@@ -91,25 +79,21 @@ void extract(const std::vector<std::string>& inputPaths) {
 	addPath("materials/models/weapons/v_models/v_hands/v_hands.vtf");
 	for (int i = 1; i <= 33; i++) {
 		addPath(std::format("materials/vgui/anims/loading_64_{}.vmt", i));
-		addPath(std::format("materials/vgui/anims/loading_64_{}.vtf", i));
+		addPath(std::format("materials/vgui/anims/loading_64_{}.ps3.vtf", i));
 	}
 	for (int i = 0; i <= 20; i++) {
 		addPath(std::format("materials/vgui/chapters/xbox/chapter{}.vmt", i));
-		addPath(std::format("materials/vgui/chapters/xbox/chapter{}.vtf", i));
+		addPath(std::format("materials/vgui/chapters/xbox/chapter{}.ps3.vtf", i));
 		addPath(std::format("materials/vgui/chapters/xbox/chapter{}a.vmt", i));
-		addPath(std::format("materials/vgui/chapters/xbox/chapter{}a.vtf", i));
+		addPath(std::format("materials/vgui/chapters/xbox/chapter{}a.ps3.vtf", i));
 		addPath(std::format("materials/vgui/chapters/xbox/chapter{}b.vmt", i));
-		addPath(std::format("materials/vgui/chapters/xbox/chapter{}b.vtf", i));
+		addPath(std::format("materials/vgui/chapters/xbox/chapter{}b.ps3.vtf", i));
 		addPath(std::format("materials/vgui/chapters/chapter{}.vmt", i));
-		addPath(std::format("materials/vgui/chapters/chapter{}.vtf", i));
+		addPath(std::format("materials/vgui/chapters/chapter{}.ps3.vtf", i));
 		addPath(std::format("materials/vgui/chapters/chapter{}a.vmt", i));
-		addPath(std::format("materials/vgui/chapters/chapter{}a.vtf", i));
+		addPath(std::format("materials/vgui/chapters/chapter{}a.ps3.vtf", i));
 		addPath(std::format("materials/vgui/chapters/chapter{}b.vmt", i));
-		addPath(std::format("materials/vgui/chapters/chapter{}b.vtf", i));
-	}
-	for (int i = 0; i <= 33; i++) {
-		addPath(std::format("materials/vgui/anims/loading_64_{}.vmt", i));
-		addPath(std::format("materials/vgui/anims/loading_64_{}.vtf", i));
+		addPath(std::format("materials/vgui/chapters/chapter{}b.ps3.vtf", i));
 	}
 	addPath("resource/dialogue/creategame.res");
 	addPath("resource/dialogue/feslgamebrowserdialogue.res");
