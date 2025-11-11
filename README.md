@@ -56,8 +56,10 @@ Cracked hashes are stored directly in the file groups, and once a hash is cracke
 remain cracked on future runs even if given a different rainbow table.
 
 First, use the extract operation to extract file paths from a given search path. Multiple
-search paths may be entered to create a larger table. This will generate a file called
-`mappings.kv` next to the `fgptool` executable.
+search paths may be entered to create a larger table, but take care to use only most relevant
+search path(s) for each table since the hashing algorithm is very poor and conflicts are
+likely if multiple are specified. This will generate a file called `mappings.kv` next to the
+`fgptool` executable.
 
 ```
 $ ./fgptool -m EXTRACT "X360/The Orange Box (World)/portal"
