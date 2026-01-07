@@ -43,7 +43,7 @@ previewing and editing of their contents in programs like [VPKEdit](https://gith
 - Place the executable and the rainbow tables inside the `FILEGROUPS` folder.
 - Ensure the FGP files are editable, since RPCS3 likes to make them read-only.
 - Drag the game folder(s) to crack the contents of on top of the executable.
-- This will be enough to edit the file groups and make custom mods or explore 98% of their contents.
+- This will be enough to edit the file groups and make custom mods or explore 99.5% of their contents.
 
 ## Extended Usage
 
@@ -152,6 +152,6 @@ Positional arguments:
 
 Optional arguments:
   -h, --help  shows help message and exits 
-  -m, --mode  The active mode. Can be EXTRACT, CRACK, META, DUMP, or TEST. [nargs=0..1]
-              [default: "CRACK"]
+  -m, --mode  The active mode. Can be EXTRACT, EXTRACT_EXACT, CRACK, META, DUMP, or TEST.
+              [nargs=0..1] [default: "CRACK"]
 ```
