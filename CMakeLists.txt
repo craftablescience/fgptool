@@ -28,5 +28,5 @@ cs_include_directory(ext)
 # fgptool
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in" "${CMAKE_CURRENT_SOURCE_DIR}/src/config.h")
 add_executable(${PROJECT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/src/fgptool.cpp")
-cs_configure_target(${PROJECT_NAME} MANIFEST)
+cs_configure_target(${PROJECT_NAME} LOGO MANIFEST)
 target_link_libraries(${PROJECT_NAME} PRIVATE argparse::argparse sourcepp::kvpp sourcepp::vpkpp)

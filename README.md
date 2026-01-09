@@ -1,4 +1,7 @@
-# fgptool
+<div>
+  <img align="left" width="44px" src="https://github.com/craftablescience/fgptool/blob/main/res/logo.png?raw=true" alt="fgptool Logo" />
+  <h1>fgptool</h1>
+</div>
 
 <div>
   <a href="https://github.com/craftablescience/fgptool/blob/main/LICENSE" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/github/license/craftablescience/fgptool?branch=main&label=license" alt="License" /></a>
